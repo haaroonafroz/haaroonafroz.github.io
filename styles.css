@@ -1949,3 +1949,64 @@
     display: none;
   }
 }
+/* Medical Co-Pilot case study */
+.medical-copilot-page .project-title .muted-text {
+  color: var(--text-secondary);
+}
+
+.medical-figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.medical-figure img {
+  width: 100%;
+  height: auto;
+}
+
+.medical-figure-diagram img {
+  max-height: 640px;
+  object-fit: contain;
+  background: #fff;
+}
+
+.medical-figure figcaption {
+  padding: 18px 22px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.medical-figure figcaption strong {
+  color: var(--text);
+}
+
+.medical-steps {
+  margin-top: 22px;
+}
+
+.medical-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+
+.medical-evidence-grid .medical-figure img {
+  max-height: 640px;
+  object-fit: contain;
+  object-position: top center;
+  background: #fff;
+}
+
+.medical-figure-wide img {
+  background: #fff;
+}
+
+@media (max-width: 700px) {
+  .medical-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+}

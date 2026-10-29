@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Medical Co-Pilot is Haaroon Afroz's synthetic clinical handoff proof of concept: FHIR evidence, clinician review, a DOM and vision computer-use agent, verification, and Phoenix traces.">
+  <meta property="og:title" content="Medical Co-Pilot — Computer-Use Handoff PoC | Haaroon Afroz">
+  <meta property="og:description" content="A synthetic FHIR-to-hospital-form workflow with human review, DOM and vision browser actions, saved-draft verification, and Phoenix observability.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://haaroonafroz.github.io/projects/medical-copilot/">
+  <link rel="canonical" href="https://haaroonafroz.github.io/projects/medical-copilot/">
+  <title>Medical Co-Pilot — Computer-Use Handoff PoC | Haaroon Afroz</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="medical-copilot-page">
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="site-logo">HA</a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="/">Portfolio</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#evidence">Evidence</a>
+        <a href="https://github.com/haaroonafroz/medical_copilot" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/haaroon-afroz-ognawala/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+      <button class="mobile-menu-button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-navigation">Menu</button>
+    </div>
+    <nav class="mobile-nav" id="mobile-navigation" aria-label="Mobile navigation">
+      <a href="/">Portfolio</a>
+      <a href="#workflow">Workflow</a>
+      <a href="#evidence">Evidence</a>
+      <a href="https://github.com/haaroonafroz/medical_copilot" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://www.linkedin.com/in/haaroon-afroz-ognawala/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="project-hero section">
+      <div class="container">
+        <a href="/#projects" class="back-link">← Selected projects</a>
+        <p class="eyebrow">PERSONAL PROJECT · HEALTHCARE AI · COMPUTER USE</p>
+        <h1 class="project-title">Medical Co-Pilot<br><span class="muted-text">A browser agent for a reviewed clinical handoff.</span></h1>
+        <p class="project-lead">I built a synthetic discharge workflow to explore how a computer-use agent can transfer a clinician-approved packet into a mock hospital form, pause when the destination is unclear, and verify the saved result. The project started as an agentic RAG copilot; this handoff demo is a separate workflow.</p>
+        <div class="hero-actions">
+          <a href="#workflow" class="button button-primary">See the workflow</a>
+          <a href="https://github.com/haaroonafroz/medical_copilot" class="button button-secondary" target="_blank" rel="noopener noreferrer">View code and run guide ↗</a>
+        </div>
+        <div class="project-meta-grid">
+          <div class="meta-item"><span class="meta-label">STATUS</span><strong>Synthetic proof of concept</strong></div>
+          <div class="meta-item"><span class="meta-label">SOURCE</span><strong>FHIR patient records</strong></div>
+          <div class="meta-item"><span class="meta-label">OPERATOR</span><strong>DOM + vision · mouse + keyboard</strong></div>
+          <div class="meta-item"><span class="meta-label">OBSERVABILITY</span><strong>Arize Phoenix traces</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-bordered" id="workflow">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">01 · HANDOFF WORKFLOW</p>
+          <h2>Review the source. Operate the form. Verify the draft.</h2>
+          <p class="section-description">The model receives approved values and source references, plus a fresh DOM summary and screenshot of the form. It chooses one browser action at a time; Playwright executes that action. A person controls clinical approval and ambiguous choices.</p>
+        </div>
+        <figure class="medical-figure medical-figure-diagram">
+          <img src="/assets/images/projects/medical-copilot/cua-workflow.png" width="2286" height="1716" alt="Synthetic FHIR record flows to clinician review, then a DOM and vision AI operator enters a mock hospital form, asks for human guidance when uncertain, and verifies the saved draft. Decisions and actions are traced." loading="lazy">
+          <figcaption>Browser entry begins only after clinician approval. Phoenix records model decisions and browser actions under the demo session.</figcaption>
+        </figure>
+        <div class="three-column-grid medical-steps">
+          <article class="info-card"><span class="card-index">01 · PREPARE</span><h3>Ground every field.</h3><p>A deterministic FHIR mapping builds the discharge sheet with links to source records. Missing or conflicting entries need clinician resolution before approval.</p></article>
+          <article class="info-card"><span class="card-index">02 · OPERATE</span><h3>Use the browser.</h3><p>GPT-6 Luna selects DOM or screenshot-informed mouse and keyboard actions. The agent can navigate tabs, fill fields and pause for a person when two destinations seem plausible.</p></article>
+          <article class="info-card"><span class="card-index">03 · CHECK</span><h3>Verify persistence.</h3><p>The app blocks saving until form fields match the approved packet. After Save draft, it reloads the form and checks all 11 persisted fields.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-bordered" id="evidence">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">02 · WHAT THE DEMO SHOWS</p>
+          <h2>Inspectable decisions and failure paths.</h2>
+          <p class="section-description">The scenarios vary the form rather than the clinical packet: a standard form, tabs, a visual-only label, an ambiguous destination and a transient save error.</p>
+        </div>
+        <div class="medical-evidence-grid">
+          <figure class="medical-figure"><img src="/assets/images/projects/medical-copilot/visual-operator-verified.png" width="893" height="1708" alt="Visual-label challenge with the operator browser beside the mock hospital form and an 11 of 11 persisted-field check." loading="lazy"><figcaption><strong>Visual label challenge.</strong> The follow-up field has a visible caption but no accessible label. The operator uses the screenshot to click it and reaches an 11/11 reload check.</figcaption></figure>
+          <figure class="medical-figure"><img src="/assets/images/projects/medical-copilot/human-pause.png" width="893" height="1713" alt="Operator paused in the mock hospital form because two follow-up destinations look plausible, awaiting human guidance." loading="lazy"><figcaption><strong>Human guidance.</strong> When two follow-up routes look plausible, the browser remains open while a person selects the correct route, then the operator resumes.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-bordered" id="observability">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">03 · OBSERVABILITY</p>
+          <h2>Trace the decision, action and result.</h2>
+          <p class="section-description">Arize Phoenix groups a run by the session ID shown in the demo. Child spans capture the model input, chosen tool and short reason, browser action, errors, token use and verification outcome. The captured content is limited to the synthetic handoff workflow.</p>
+        </div>
+        <figure class="medical-figure medical-figure-wide"><img src="/assets/images/projects/medical-copilot/phoenix-model-decision.png" width="1600" height="1000" alt="Phoenix trace showing a computer-use model decision and related browser action spans in one demo session." loading="lazy"><figcaption>A Phoenix session connects the CUA decision with the resulting browser action.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section section-bordered">
+      <div class="container narrow-container">
+        <p class="eyebrow">SCOPE AND NEXT STEPS</p>
+        <h2>A research prototype, with visible limits.</h2>
+        <p class="section-description">This runs on synthetic patient data and an invented hospital form. It is not connected to a real HIS, validated for clinical use, or ready for real patient data. The next work is broader form and failure evaluations, durable resumable runs, stronger access and privacy controls, and recovery when interfaces change.</p>
+        <div class="hero-actions"><a href="https://github.com/haaroonafroz/medical_copilot" class="button button-primary" target="_blank" rel="noopener noreferrer">Explore the repository ↗</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container footer-inner"><div><strong>Haaroon Afroz Ognawala</strong><p>AI Engineer · Agentic AI · Software Engineering</p></div><div class="footer-links"><a href="/">Portfolio</a><a href="https://github.com/haaroonafroz" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://www.linkedin.com/in/haaroon-afroz-ognawala/" target="_blank" rel="noopener noreferrer">LinkedIn</a></div></div></footer>
+  <script src="/script.js"></script>
+</body>
+</html>
